@@ -42,11 +42,16 @@ class Tree(object):
         # get its next
         pass
 
-    def inOrder(self, rootIn, values=[]):
+    def inOrder(self):
+        empty = []
+        startRoot = self.root
+        return self._inOrder(startRoot, empty)
+
+    def _inOrder(self, rootIn, values):
         if rootIn is not None:
-            self.inOrder(rootIn.lc, values)
+            self._inOrder(rootIn.lc, values)
             values.append(str(rootIn.value))
-            self.inOrder(rootIn.rc, values)
+            self._inOrder(rootIn.rc, values)
         return " ".join(values)
 
     class Node(object):
@@ -55,20 +60,22 @@ class Tree(object):
             self.lc = lc
             self.rc = rc
 
-def makeTree():
+def makeTrees():
     starterTree = Tree(50)
-    #print starterTree.root.value
-    starterTree.add(20)
-    #print starterTree.root.lc.value
-    starterTree.add(70)
-    #print starterTree.root.rc.value
-    starterTree.add(49)
-    #print starterTree.root.lc.value
-    #print starterTree.root.lc.rc.value
-    starterTree.add(1001)
-    print starterTree.inOrder(starterTree.root)
-    print "_____"
-    print starterTree.findNext(starterTree.root)
+    start_add = [20, 70, 49, 1001]
+    for s_add in start_add:
+        starterTree.add(s_add)
+    print "starterTree inOrder: " + starterTree.inOrder()
+    balancedTree = Tree(5)
+    test_add = [3,1,9]
+    for t_add in test_add:
+        balancedTree.add(t_add)
+    unbalancedTree = Tree(5)
+    test_add += [2]
+    for t_add in test_add:
+        unbalancedTree.add(t_add)
+    print "balancedTree inOrder: " + balancedTree.inOrder()
+    print "unbalancedTree inOrder: " + unbalancedTree.inOrder()
 
 if __name__ == "__main__":
-    makeTree()
+    makeTrees()
