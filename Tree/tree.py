@@ -12,7 +12,7 @@ class Tree(object):
                 curNode.rc = to_add
                 return
             else:
-                self._add(ddVal, curNode.rc)
+                self._add(addVal, curNode.rc)
         elif addVal < curNode.value:
             if curNode.lc is None:
                 to_add = self.Node(addVal)
@@ -42,12 +42,12 @@ class Tree(object):
         # get its next
         pass
 
-    def inOrder(self, rootIn):
+    def inOrder(self, rootIn, values=[]):
         if rootIn is not None:
-            self.inOrder(rootIn.lc)
-            print rootIn.value
-            self.inOrder(rootIn.rc)
-
+            self.inOrder(rootIn.lc, values)
+            values.append(str(rootIn.value))
+            self.inOrder(rootIn.rc, values)
+        return " ".join(values)
 
     class Node(object):
         def __init__(self, value=None, lc=None, rc=None):
@@ -65,7 +65,10 @@ def makeTree():
     starterTree.add(49)
     #print starterTree.root.lc.value
     #print starterTree.root.lc.rc.value
-    starterTree.inOrder(starterTree.root)
+    starterTree.add(1001)
+    print starterTree.inOrder(starterTree.root)
+    print "_____"
     print starterTree.findNext(starterTree.root)
 
-makeTree()
+if __name__ == "__main__":
+    makeTree()
