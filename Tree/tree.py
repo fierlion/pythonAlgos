@@ -60,6 +60,23 @@ class Tree(object):
             self.lc = lc
             self.rc = rc
 
+def isBalanced(treeIn):
+    result = getMaxDepth(treeIn.root, 0)
+    return True if result > -1 else False
+
+def getMaxDepth(rootNode, depth):
+    if rootNode is None:
+        return 0
+    ldepth = getMaxDepth(rootNode.lc, depth)
+    rdepth = getMaxDepth(rootNode.rc, depth)
+    if ldepth == -1 or rdepth == -1:
+        return -1
+    if abs(ldepth - rdepth) > 1:
+        return -1
+    max_depth = max(ldepth+1, rdepth+1)
+    print rootNode.value, ldepth, rdepth, max_depth
+    return max_depth
+
 def makeTrees():
     starterTree = Tree(50)
     start_add = [20, 70, 49, 1001]
@@ -67,15 +84,17 @@ def makeTrees():
         starterTree.add(s_add)
     print "starterTree inOrder: " + starterTree.inOrder()
     balancedTree = Tree(5)
-    test_add = [3,1,9]
+    test_add = [1,9]
     for t_add in test_add:
         balancedTree.add(t_add)
     unbalancedTree = Tree(5)
-    test_add += [2]
+    test_add += [2,3]
     for t_add in test_add:
         unbalancedTree.add(t_add)
     print "balancedTree inOrder: " + balancedTree.inOrder()
     print "unbalancedTree inOrder: " + unbalancedTree.inOrder()
+    print isBalanced(balancedTree)
+    print isBalanced(unbalancedTree)
 
 if __name__ == "__main__":
     makeTrees()
