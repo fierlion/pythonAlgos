@@ -9,4 +9,4 @@ def _all_subsets(list_in, prefix, result):
     return result
 
 if __name__ == '__main__':
-    print all_subsets([1,2,3])
+    print(all_subsets([1,2,3,4,5]))
